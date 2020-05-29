@@ -2,6 +2,7 @@
 
 import json
 import time
+import urllib
 
 import matplotlib
 matplotlib.use('GTKAgg')
@@ -14,8 +15,10 @@ skipBytes = 3
 skipItems = 1
 days = 7
 fn = "new-cases-chart-data.json"
+url = "https://www.cdc.gov/coronavirus/2019-ncov/json/new-cases-chart-data.json"
 
-raw = json.loads(open(fn).read()[skipBytes:])
+#raw = json.loads(open(fn).read()[skipBytes:])
+raw = json.loads(urllib.urlopen(url).read()[skipBytes:])
 
 times = np.array([time.mktime(time.strptime(xx, '%m/%d/%Y')) for xx in raw[0][skipItems:]])
 times -= times[0]
